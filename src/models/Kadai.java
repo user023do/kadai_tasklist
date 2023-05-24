@@ -14,9 +14,13 @@ import javax.persistence.Table;
 @Entity
 @NamedQueries({
     @NamedQuery(
-        name = "getAllKadais",
-        query = "SELECT m FROM Kadai AS m ORDER BY m.id DESC"
-    )
+            name = "getAllKadais",
+            query = "SELECT m FROM Kadai AS m ORDER BY m.id DESC"
+            ),
+    @NamedQuery(
+            name = "getkadaisCount",
+            query = "SELECT COUNT(m) FROM Kadai AS m"
+            )
 })
 @Table(name = "kadais")
 public class Kadai {

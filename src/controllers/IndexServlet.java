@@ -32,18 +32,35 @@ public class IndexServlet extends HttpServlet {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
-        List<Kadai> kadais = em.createNamedQuery("getAllKadais", Kadai.class).getResultList();
+     // 開くページ数を取得（デフォルトは1ページ目）
+        int page = 1;
+        try {
+            page = Integer.parseInt(request.getParameter("page"));
+        } catch(NumberFormatException e) {}
+
+        // 最大件数と開始位置を指定してメッセージを取得
+        List<Kadai> kadais = em.createNamedQuery("getAllKadais", Kadai.class)
+                                   .setFirstResult(15 * (page - 1))
+                                   .setMaxResults(15)
+                                   .getResultList();
+
+        // 全件数を取得
+        long kadais_count = (long)em.createNamedQuery("getKadaisCount", Long.class)
+                                      .getSingleResult();
 
         em.close();
 
         request.setAttribute("kadais", kadais);
+        request.setAttribute("kadais_count", kadais_count);     // 全件数
+        request.setAttribute("page", page);                         // ページ数
 
-     // フラッシュメッセージがセッションスコープにセットされていたら
+        // フラッシュメッセージがセッションスコープにセットされていたら
         // リクエストスコープに保存する（セッションスコープからは削除）
-        if(request.getSession().getAttribute("flush") != null) {
+        if (request.getSession().getAttribute("flush") != null) {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");
         }

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Kadai;
+import models.Task;
 import models.validators.KadaiValidator;
 import utils.DBUtil;
 
@@ -40,7 +40,7 @@ public class CreateServlet extends HttpServlet {
             EntityManager em = DBUtil.createEntityManager();
             em.getTransaction().begin();
 
-            Kadai m = new Kadai();
+            Task m = new Task();
 
             String content = request.getParameter("content");
             m.setContent(content);

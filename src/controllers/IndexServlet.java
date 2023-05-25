@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Kadai;
+import models.Task;
 import utils.DBUtil;
 
 /**
@@ -43,13 +43,13 @@ public class IndexServlet extends HttpServlet {
         } catch(NumberFormatException e) {}
 
         // 最大件数と開始位置を指定してメッセージを取得
-        List<Kadai> kadais = em.createNamedQuery("getAllKadais", Kadai.class)
+        List<Task> kadais = em.createNamedQuery("getAllkadais", Task.class)
                                    .setFirstResult(15 * (page - 1))
                                    .setMaxResults(15)
                                    .getResultList();
 
         // 全件数を取得
-        long kadais_count = (long)em.createNamedQuery("getKadaisCount", Long.class)
+        long kadais_count = (long)em.createNamedQuery("getkadaisCount", Long.class)
                                       .getSingleResult();
 
         em.close();

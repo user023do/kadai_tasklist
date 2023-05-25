@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Kadai;
+import models.Task;
 
 /**
  * Servlet implementation class NewServlet
@@ -33,7 +33,7 @@ public class NewServlet extends HttpServlet {
         request.setAttribute("_token", request.getSession().getId());
 
         // おまじないとしてのインスタンスを生成
-        request.setAttribute("kadai", new Kadai());
+        request.setAttribute("kadai", new Task());
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/kadais/new.jsp");
         rd.forward(request, response);

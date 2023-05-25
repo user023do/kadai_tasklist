@@ -2,11 +2,12 @@ package models.validators;
 
 import java.util.ArrayList;
 import java.util.List;
-import models.Kadai;
+
+import models.Task;
 
 public class KadaiValidator {
     // バリデーションを実行する
-    public static List<String> validate(Kadai m) {
+    public static List<String> validate(Task m) {
         List<String> errors = new ArrayList<String>();
 
         String content_error = validateContent(m.getContent());

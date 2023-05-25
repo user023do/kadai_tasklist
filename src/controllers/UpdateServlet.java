@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Kadai;
+import models.Task;
 import models.validators.KadaiValidator;
 import utils.DBUtil;
 
@@ -41,7 +41,7 @@ public class UpdateServlet extends HttpServlet {
 
             // セッションスコープからメッセージのIDを取得して
             // 該当のIDのメッセージ1件のみをデータベースから取得
-            Kadai m = em.find(Kadai.class, (Integer) (request.getSession().getAttribute("kadai_id")));
+            Task m = em.find(Task.class, (Integer) (request.getSession().getAttribute("kadai_id")));
 
             // フォームの内容を各フィールドに上書き
             String content = request.getParameter("content");
